@@ -93,12 +93,9 @@ clean:
 	rm -f custbaud.o termios2.o custbaud_bsd.o
 	rm -f *~
 	rm -f \#*\#
-
-distclean: clean
 	rm -f hyper-picocom
-
-realclean: distclean
 	rm -f hyper-picocom.1
 	rm -f hyper-picocom.1.html
 	rm -f hyper-picocom.1.pdf
 	rm -f CHANGES
+
