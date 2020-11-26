@@ -21,6 +21,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
+ *
+ * Additions: >hyper-picocom.c : Additional features such as color support, more sensible defaults, etc
+ *            >colors.h        : Color output support header
+ *
  */
 
 #include <stdlib.h>
@@ -56,7 +60,7 @@
 #endif
 
 #include "custbaud.h"
-
+#include "colors.h"
 /**********************************************************************/
 
 /* parity modes names */
@@ -221,7 +225,7 @@ struct {
     int quiet;
 } opts = {
     .port = NULL,
-    .baud = 9600,
+    .baud = 115200,
     .flow = FC_NONE,
     .parity = P_NONE,
     .databits = 8,
@@ -646,7 +650,7 @@ pinfo(const char *format, ...)
     va_list args;
     int len;
 
-    if ( opts.quiet ) {
+    if ( opts.quiet == 1 ) {
         return 0;
     }
     va_start(args, format);
@@ -715,11 +719,11 @@ fatal (const char *format, ...)
 {
     va_list args;
 
-    fd_printf(STE, "\r\nFATAL: ");
+    fd_printf(STE, "\r\n\033[1;31m[ERR]: ");
     va_start(args, format);
     fd_vprintf(STE, format, args);
     va_end(args);
-    fd_printf(STE, "\r\n");
+    fd_printf(STE, "\033[0m\r\n");
 
     cleanup(0 /* drain */, opts.noreset, opts.hangup);
 
@@ -1722,6 +1726,8 @@ parse_args(int argc, char *argv[])
     };
 
     r = 0;
+    //make output quiet by default
+    opts.quiet = 1;
     while (1) {
         int optionIndex = 0;
         int c;
@@ -1907,7 +1913,7 @@ parse_args(int argc, char *argv[])
             opts.exit = 1;
             break;
         case 'q':
-            opts.quiet = 1;
+            opts.quiet = 0;
             break;
         case 'h':
             show_usage(argv[0]);
@@ -1947,11 +1953,20 @@ parse_args(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    if ( opts.quiet )
-        return;
-
+    if ( opts.quiet)
+    {
+       font_next_cyan();
+       printf("\n\e[4m| port [%s] | baud [%d] | quiet? [%d] |\n", opts.port, opts.baud, opts.quiet);
+       font_next_reset();
+       printf("\r\n");
+       return;
+    }
 #ifndef NO_HELP
-    printf("picocom v%s\n", VERSION_STR);
+    font_next_cyan();
+    printf("\n\e[4m| port [%s] | baud [%d] | quiet? [%d] |\n", opts.port, opts.baud, opts.quiet);
+    font_next_reset();
+    printf("\r\n");
+    printf("hyper-picocom v%s\n", VERSION_STR);
     printf("\n");
     printf("port is        : %s\n", opts.port);
     printf("flowcontrol    : %s\n", flow_str[opts.flow]);
@@ -2171,14 +2186,14 @@ main (int argc, char *argv[])
               KEYC(opts.escape), KEYC(KEY_HELP));
     }
 #endif
-    pinfo("Terminal ready\r\n");
+    pinfo("Init...[OK]\nReady.\r\n");
 
     /* Enter main processing loop */
     ler = loop();
 
     /* Terminating picocom */
     pinfo("\r\n");
-    pinfo("Terminating...\r\n");
+    pinfo("Hyper-picocom exiting...\r\n");
 
     if ( ler == LE_CMD || ler == LE_SIGNAL )
         cleanup(0 /* drain */, opts.noreset, opts.hangup);
@@ -2186,10 +2201,10 @@ main (int argc, char *argv[])
         cleanup(1 /* drain */, opts.noreset, opts.hangup);
 
     if ( ler == LE_SIGNAL ) {
-        pinfo("Picocom was killed\r\n");
+        pinfo("Hyper-Picocom was killed\r\n");
         xcode = EXIT_FAILURE;
     } else
-        pinfo("Thanks for using picocom\r\n");
+        pinfo("Thanks for using Hyper-picocom\r\n");
 
     return xcode;
 }
@@ -2203,3 +2218,4 @@ main (int argc, char *argv[])
  * c-basic-offset: 4
  * End:
  */
+
