@@ -1943,9 +1943,17 @@ parse_args(int argc, char *argv[])
     if ( opts.exit ) opts.exit_after = -1;
 
     if ( (argc - optind) < 1) {
-        fprintf(stderr, "No port given\n");
-        fprintf(stderr, "Run with '--help'.\n");
-        exit(EXIT_FAILURE);
+         font_next_cyan();
+         printf("hyper-picocom v%s", VERSION_STR);
+         font_next_reset();
+         printf("\r\n");
+         font_next_red();
+         printf("Please supply a port\n");
+         printf("Run with '--help for more information'.\n");
+         font_next_reset();
+         printf("\r\n");
+         exit(EXIT_FAILURE);
+ 
     }
     opts.port = strdup(argv[argc-1]);
     if ( ! opts.port ) {
