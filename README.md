@@ -2,14 +2,20 @@
 Minimal dumb-terminal emulator with a user friendly CLI GUI.
 
 by Nick Patavalis (npat@efault.net)
+
 Fork and additions by Alex Mihail (hendrix2897)
 The latest release can be downloaded from:
 
 > https://github.com/hendrix2897/hypercom
 
-As its name suggests, *picocom* is a minimal dumb-terminal emulation
-program. It is, in principle, very much like minicom, only it's "pico"
-instead of "mini"!
+As its name suggests, *hypercom* is a minimal dumb-terminal emulation
+program. It is, in principle, very much like picocom (direct fork) but
+adds some niceties such as a minimal runtime interface informing the user of current settings like baudrate, port, etc.
+These can be modified/toggled off at will, through the use of the --q (quiet) flag.
+The build process is identical to the original picocom Makefile (make, make install)
+Confirmed to build on: LINUX (Debnian/Fedora/Arch), *BSD (FreeBSD), MacOS 12(arm64)
+
+The ORIGINAL picocom Readme follows:
 
 It was designed to serve as a simple, manual, modem configuration,
 testing, and debugging tool. It has also served (quite well) as a
