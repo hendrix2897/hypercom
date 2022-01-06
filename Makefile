@@ -1,5 +1,5 @@
 
-VERSION = 0.9991A
+VERSION = 0.9991B
 
 #CC ?= gcc
 CPPFLAGS += -DVERSION_STR=\"$(VERSION)\"
@@ -9,7 +9,7 @@ LD = $(CC)
 LDFLAGS ?= -g
 LDLIBS ?=
 
-all: hyper-picocom
+all: hypercom
 OBJS =
 
 ## This is the maximum size (in bytes) the output (e.g. copy-paste)
@@ -31,7 +31,7 @@ CPPFLAGS += -DUSE_FLOCK
 #CPPFLAGS += -DUUCP_LOCK_DIR=\"$(UUCP_LOCK_DIR)\"
 
 ## Comment these out to disable "linenoise"-library support
-HISTFILE = .hyper-picocom_history
+HISTFILE = .hypercom_history
 CPPFLAGS += -DHISTFILE=\"$(HISTFILE)\" \
 	    -DLINENOISE
 OBJS += linenoise-1.0/linenoise.o
@@ -49,11 +49,11 @@ linenoise-1.0/linenoise.o : linenoise-1.0/linenoise.c linenoise-1.0/linenoise.h
 #CPPFLAGS += -DNO_HELP
 
 
-OBJS += hyper-picocom.o term.o fdio.o split.o custbaud.o termios2.o custbaud_bsd.o
-hyper-picocom : $(OBJS)
+OBJS += hypercom.o term.o fdio.o split.o custbaud.o termios2.o custbaud_bsd.o
+hypercom : $(OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
 
-hyper-picocom.o : hyper-picocom.c term.h fdio.h split.h custbaud.h colors.h
+hypercom.o : hypercom.c term.h fdio.h split.h custbaud.h colors.h
 term.o : term.c term.h termios2.h custbaud_bsd.h custbaud.h
 split.o : split.c split.h
 fdio.o : fdio.c fdio.h
@@ -64,9 +64,9 @@ custbaud.o : custbaud.c custbaud.h
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 
-doc : hyper-picocom.1.html hyper-picocom.1 hyper-picocom.1.pdf
+doc : hypercom.1.html hypercom.1 hypercom.1.pdf
 
-hyper-picocom.1 : hyper-picocom.1.md
+hypercom.1 : hypercom.1.md
 	sed 's/\*\*\[/\*\*/g;s/\]\*\*/\*\*/g' $? \
 	| pandoc -s -t man \
 	    -Vfooter="Picocom $(VERSION)" -Vdate="`date -I`" \
@@ -74,7 +74,7 @@ hyper-picocom.1 : hyper-picocom.1.md
 	    -Vhyphenate='' \
 	    -o $@
 
-hyper-picocom.1.html : hyper-picocom.1.md
+hypercom.1.html : hypercom.1.md
 	pandoc -s -t html \
 	    --template ~/.pandoc/tmpl/manpage.html \
 	    -c ~/.pandoc/css/normalize-noforms.css \
@@ -83,19 +83,19 @@ hyper-picocom.1.html : hyper-picocom.1.md
 	    -Vversion="v$(VERSION)" -Vdate="`date -I`" \
 	    -o $@ $?
 
-hyper-picocom.1.pdf : hyper-picocom.1
+hypercom.1.pdf : hypercom.1
 	groff -man -Tpdf $? > $@
 
 
 clean:
-	rm -f hyper-picocom.o term.o fdio.o split.o
+	rm -f hypercom.o term.o fdio.o split.o
 	rm -f linenoise-1.0/linenoise.o
 	rm -f custbaud.o termios2.o custbaud_bsd.o
 	rm -f *~
 	rm -f \#*\#
-	rm -f hyper-picocom
-	rm -f hyper-picocom.1
-	rm -f hyper-picocom.1.html
-	rm -f hyper-picocom.1.pdf
+	rm -f hypercom
+	rm -f hypercom.1
+	rm -f hypercom.1.html
+	rm -f hypercom.1.pdf
 	rm -f CHANGES
 
