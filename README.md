@@ -1,11 +1,11 @@
-# picocom
-Minimal dumb-terminal emulator
+# hypercom
+Minimal dumb-terminal emulator with a user friendly CLI GUI.
 
 by Nick Patavalis (npat@efault.net)
-
+Fork and additions by Alex Mihail (hendrix2897)
 The latest release can be downloaded from:
 
-> https://github.com/npat-efault/picocom/releases
+> https://github.com/hendrix2897/hypercom
 
 As its name suggests, *picocom* is a minimal dumb-terminal emulation
 program. It is, in principle, very much like minicom, only it's "pico"
