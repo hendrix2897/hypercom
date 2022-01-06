@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * picocom.c
+ *hypercom.c
  *
  * simple dumb-terminal program. Helps you manually configure and test
  * stuff like modems, devices w. serial ports, etc.
@@ -22,7 +22,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  *
- * Additions: >hyper-picocom.c : Additional features such as color support, more sensible defaults, etc
+ * Additions: >hypercom.c : Additional features such as color support, more sensible defaults, etc
  *            >colors.h        : Color output support header
  *
  */
@@ -89,8 +89,8 @@ const char *flow_str[] = {
 /* printable character to control-key */
 #define CKEY(c) ((c) & 0x1f)
 
-#define KEY_EXIT    CKEY('x') /* exit picocom */
-#define KEY_QUIT    CKEY('q') /* exit picocom without reseting port */
+#define KEY_EXIT    CKEY('x') /* exit hypercom */
+#define KEY_QUIT    CKEY('q') /* exit hypercom without reseting port */
 #define KEY_PULSE   CKEY('p') /* pulse DTR */
 #define KEY_TOG_DTR CKEY('t') /* toggle DTR */
 #define KEY_TOG_RTS CKEY('g') /* toggle RTS */
@@ -1018,7 +1018,7 @@ show_keys()
     fd_printf(STO, "*** Picocom commands (all prefixed by [C-%c])\r\n",
               KEYC(opts.escape));
     fd_printf(STO, "\r\n");
-    fd_printf(STO, "*** [C-%c] : Exit picocom\r\n",
+    fd_printf(STO, "*** [C-%c] : Exit hypercom\r\n",
               KEYC(KEY_EXIT));
     fd_printf(STO, "*** [C-%c] : Exit without reseting serial port\r\n",
               KEYC(KEY_QUIT));
@@ -1611,7 +1611,7 @@ show_usage(char *name)
     s = strrchr(name, '/');
     s = s ? s+1 : name;
 
-    printf("picocom v%s\n", VERSION_STR);
+    printf("hypercom v%s\n", VERSION_STR);
 
     printf("\nCompiled-in options:\n");
     printf("  TTY_Q_SZ is %d\n", TTY_Q_SZ);
@@ -1944,7 +1944,7 @@ parse_args(int argc, char *argv[])
 
     if ( (argc - optind) < 1) {
          font_next_cyan();
-         printf("hyper-picocom v%s", VERSION_STR);
+         printf("hypercom v%s", VERSION_STR);
          font_next_reset();
          printf("\r\n");
          font_next_red();
@@ -1974,7 +1974,7 @@ parse_args(int argc, char *argv[])
     printf("\n\e[4m| port [%s] | baud [%d] | quiet? [%d] |\n", opts.port, opts.baud, opts.quiet);
     font_next_reset();
     printf("\r\n");
-    printf("hyper-picocom v%s\n", VERSION_STR);
+    printf("hypercom v%s\n", VERSION_STR);
     printf("\n");
     printf("port is        : %s\n", opts.port);
     printf("flowcontrol    : %s\n", flow_str[opts.flow]);
@@ -2201,7 +2201,7 @@ main (int argc, char *argv[])
 
     /* Terminating picocom */
     pinfo("\r\n");
-    pinfo("Hyper-picocom exiting...\r\n");
+    pinfo("Hypercom exiting...\r\n");
 
     if ( ler == LE_CMD || ler == LE_SIGNAL )
         cleanup(0 /* drain */, opts.noreset, opts.hangup);
@@ -2212,7 +2212,7 @@ main (int argc, char *argv[])
         pinfo("Hyper-Picocom was killed\r\n");
         xcode = EXIT_FAILURE;
     } else
-        pinfo("Thanks for using Hyper-picocom\r\n");
+        pinfo("Thanks for using Hypercom\r\n");
 
     return xcode;
 }
