@@ -6,23 +6,25 @@ header: User Commands
 
 # NAME
 
-hyper-picocom - minimal dumb-terminal emulation program
+hypercom - minimal dumb-terminal emulation program
 
 
 # SYNOPSIS
 
-**hyper-picocom** [ _options_ ] _device_
+**hypercom** [ _options_ ] _device_
 
 
 # DESCRIPTION
 
-As its name suggests, **hyper-picocom(1)** is a minimal dumb-terminal
-emulation program. It is, in principle, very much like **minicom(1)**,
-only it's "pico" instead of "mini"! It was designed to serve as a
+As its name suggests, **hypercom(1)** is a minimal dumb-terminal
+emulation program. It is, in principle, very much like **picocom(1)**,
+only it's "hyper" instead of "pico"! It was designed to serve as a
 simple, manual, modem configuration, testing, and debugging tool. It
 has also served (quite well) as a low-tech serial communications
 program to allow access to all types of devices that provide serial
 consoles. It could also prove useful in many other similar tasks.
+
+Original picocom Readme follows:
 
 In effect, picocom is not an "emulator" per-se. It is a simple program
 that opens, configures, manages a serial port (tty device) and its
