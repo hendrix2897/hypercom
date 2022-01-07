@@ -15,8 +15,6 @@ These can be modified/toggled off at will, through the use of the --q (quiet) fl
 The build process is identical to the original hypercom Makefile (make, make install)
 Confirmed to build on: LINUX (Debnian/Fedora/Arch), *BSD (FreeBSD), MacOS 12(arm64)
 
-The ORIGINAL hypercom Readme follows:
-
 It was designed to serve as a simple, manual, modem configuration,
 testing, and debugging tool. It has also served (quite well) as a
 low-tech serial communications program to allow access to all types of
