@@ -23,7 +23,7 @@ many other similar tasks. It can be used in embedded systems, since
 its memory footprint is rather small (approximately 40K, when stripped
 and minimally configured).
 
-*Picocom* runs and is primarily tested on Linux. With no, or with
+*Hypercom* runs and is primarily tested on Linux. With no, or with
 minor, modifications it will run (and most of its features will work)
 on any Unix-like system with a reasonably POSIX-compatible termios(3)
 interface. Patches to support idiosyncrasies of specific Unix-like
@@ -391,7 +391,7 @@ Some interesting points:
   want, you can enable the commands by providing specific file-upload
   and file-download programs as the arguments to the `--send-cmd` and
   `--receive-cmd` hypercom command-line options (provided, of-course,
-  that you trust these programs). Picocom (starting with release 2.0)
+  that you trust these programs). Hypercom (starting with release 2.0)
   does not use `/bin/sh` to execute the file-upload and file-download
   programs and *will not* let the user inject shell-commands when
   supplying additional arguments to them.
